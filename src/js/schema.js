@@ -4,7 +4,7 @@
  */
 
 import {Schema} from "prosemirror-model"
-// import {addListNodes} from "prosemirror-schema-list"
+import {addListNodes} from 'prosemirror-schema-list'
 
 const pDOM = ["p", 0], blockquoteDOM = ["blockquote", 0], hrDOM = ["hr"],
       preDOM = ["pre", ["code", 0]], brDOM = ["br"]
@@ -108,31 +108,6 @@ const nodes = {
     toDOM() { return brDOM }
   },
 
-  ordered_list: {
-    content: "list_item+",
-    group: "block",
-    attrs: {order: {default: 1}},
-    parseDOM: [{tag: "ol", getAttrs(dom) {
-      return {order: dom.hasAttributes("start") ? +dom.getAttribute("start") : 1}
-    }}],
-    toDOM(node) {
-      return node.attrs.order == 1 ? ["ol", 0] : ["ol", {start: node.attrs.order}, 0]
-    }
-  },
-
-  bullet_list: {
-    content: "list_item+",
-    group: "block",
-    parseDOM: [{tag: "ul"}],
-    toDOM() { return ["ul", 0] }
-  },
-
-  list_item: {
-    content: "text*",
-    parseDOM: [{tag: "li"}],
-    toDOM() { return ["li", 0] },
-    // defining: true
-  }
 }
 
 const emDOM = ["em", 0], strongDOM = ["strong", 0], codeDOM = ["code", 0]
@@ -180,17 +155,9 @@ const marks = {
   }
 }
 
-export const schema = new Schema({nodes, marks})
+const intermediateSchema = new Schema({nodes, marks})
 
-// :: Schema
-// This schema roughly corresponds to the document schema used by
-// [CommonMark](http://commonmark.org/), minus the list elements,
-// which are defined in the [`prosemirror-schema-list`](#schema-list)
-// module.
-//
-// To reuse elements from this schema, extend or read from its
-// `spec.nodes` and `spec.marks` [properties](#model.Schema.spec).
-// export const schema = new Schema({
-//   nodes: addListNodes(baseSchema.spec.nodes, "paragraph (ordered_list | bullet_list)*", "block"),
-//   marks: baseSchema.spec.marks,
-// })
+export const schema = new Schema({
+  nodes: addListNodes(intermediateSchema.spec.nodes, 'paragraph block *', 'block'),
+  marks: intermediateSchema.spec.marks,
+})
