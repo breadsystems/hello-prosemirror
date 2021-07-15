@@ -1,11 +1,9 @@
-import {DOMParser, Schema} from 'prosemirror-model'
-import {EditorState} from "prosemirror-state"
-import {EditorView} from "prosemirror-view"
-import {undo, redo, history} from "prosemirror-history"
-import {keymap} from "prosemirror-keymap"
+import { mountEditorInto } from './lib'
+import { keymap } from "prosemirror-keymap"
+import { undo, redo, history } from "prosemirror-history"
 import {baseKeymap, liftEmptyBlock, splitBlock, chainCommands, newlineInCode, createParagraphNear} from "prosemirror-commands"
 
-import {schema} from "./schema"
+import { schema } from "./schema"
 
 mountEditorInto(document.querySelector('.editable'), {
   schema,
@@ -27,14 +25,3 @@ mountEditorInto(document.querySelector('.editable'), {
   ]
 });
 
-
-
-function mountEditorInto(node, config) {
-  const state = EditorState.create(Object.assign({}, {
-    doc: DOMParser.fromSchema(config.schema).parse(node),
-  }, config))
-
-  new EditorView(node.parentNode, {state})
-
-  node.parentNode.removeChild(node)
-}
