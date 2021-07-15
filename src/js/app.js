@@ -1,9 +1,7 @@
-import { mountEditorInto, defaultPlugins } from './lib'
-
-import { schema } from "./schema"
+import { mountEditorInto, defaultPlugins, schemaFromPatterns } from './lib'
 
 mountEditorInto(document.querySelector('.editable'), {
-  schema,
+  schema: schemaFromPatterns([]),
   plugins: defaultPlugins,
 });
 

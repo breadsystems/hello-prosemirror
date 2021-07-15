@@ -4,6 +4,12 @@ import {EditorView} from "prosemirror-view"
 import { keymap } from "prosemirror-keymap"
 import { undo, redo, history } from "prosemirror-history"
 import {baseKeymap, liftEmptyBlock, splitBlock, chainCommands, newlineInCode, createParagraphNear} from "prosemirror-commands"
+import { schema } from "./schema"
+
+// TODO
+export const schemaFromPatterns = (patterns) => {
+  return schema
+}
 
 export const defaultPlugins = [
   history(),
