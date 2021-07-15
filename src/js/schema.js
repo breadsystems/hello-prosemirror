@@ -77,9 +77,8 @@ const nodes = {
     group: "inline"
   },
 
-  // :: NodeSpec An inline image (`<img>`) node. Supports `src`,
-  // `alt`, and `href` attributes. The latter two default to the empty
-  // string.
+  // :: NodeSpec An inline image (`<img>`) node. Supports `src` and `alt`
+  // attributes. The latter defaults to the empty string.
   image: {
     inline: true,
     attrs: {
