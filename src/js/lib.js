@@ -10,6 +10,16 @@
 //} from "prosemirror-commands"
 //import { schema } from "./schema"
 
+import { EditorState } from "prosemirror-state"
+import { EditorView } from "prosemirror-view"
+import { DOMParser } from "prosemirror-model"
+import { exampleSetup } from "prosemirror-example-setup"
+
+// TODO
+export const schemaFromPatterns = (patterns) => {
+  return schema
+}
+
 //export const defaultPlugins = [
 //  history(),
 //  // give custom mappings priority
@@ -27,8 +37,23 @@
 //  keymap(baseKeymap),
 //]
 
+//export function mountEditorInto(node, config) {
+//  const state = EditorState.create(Object.assign({}, {
+//    doc: DOMParser.fromSchema(config.schema).parse(node),
+//  }, config))
+//
+//  new EditorView(node.parentNode, {state})
+//
+//  node.parentNode.removeChild(node)
+//}
 
-// TODO
-export const schemaFromPatterns = (patterns) => {
-  return schema
-}
+export const mountEditorInto = (node, config) => {
+  const state = EditorState.create({
+    doc: DOMParser.fromSchema(config.schema).parse(node),
+    plugins: exampleSetup(config),
+  })
+
+  new EditorView(node.parentNode, { state });
+
+  node.parentNode.removeChild(node);
+};
