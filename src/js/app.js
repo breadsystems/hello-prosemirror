@@ -5,7 +5,7 @@ import {schema} from "prosemirror-schema-basic"
 import {addListNodes} from "prosemirror-schema-list"
 import {exampleSetup} from "prosemirror-example-setup"
 
-const node = document.querySelector('.editable-container');
+const node = document.querySelector('.editable');
 
 
 //mountEditorInto(document.querySelector('.editable'), {
