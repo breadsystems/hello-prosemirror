@@ -21,6 +21,7 @@
     "stylus": "^0.54.7"
   },
   "scripts": {
-    "watch": "parcel watch src/index.html"
+    "watch": "parcel watch src/index.html",
+    "dev": "node server.js"
   }
 }
